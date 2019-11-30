@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29512.175
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentQnA.Library", "FluentQnA.Library\FluentQnA.Library.csproj", "{3BD930C3-9E27-4107-BBF5-CF757578D331}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3BD930C3-9E27-4107-BBF5-CF757578D331}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BD930C3-9E27-4107-BBF5-CF757578D331}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BD930C3-9E27-4107-BBF5-CF757578D331}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BD930C3-9E27-4107-BBF5-CF757578D331}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6D79FE9E-690A-4414-A274-7713B886E864}
+	EndGlobalSection
+EndGlobal
