@@ -3,11 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29512.175
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentQnA.Library", "FluentQnA.Library\FluentQnA.Library.csproj", "{3BD930C3-9E27-4107-BBF5-CF757578D331}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{FBE75125-A785-4E7E-90A8-C1CB14C61009}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplication", "FluentQnA.ConsoleApplication\ConsoleApplication.csproj", "{839E1716-C3A5-4362-96D2-87C7C9D1AB34}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentQnA.Library", "FluentQnA.Library\FluentQnA.Library.csproj", "{3BD930C3-9E27-4107-BBF5-CF757578D331}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,16 +15,9 @@ Global
 		{3BD930C3-9E27-4107-BBF5-CF757578D331}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BD930C3-9E27-4107-BBF5-CF757578D331}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3BD930C3-9E27-4107-BBF5-CF757578D331}.Release|Any CPU.Build.0 = Release|Any CPU
-		{839E1716-C3A5-4362-96D2-87C7C9D1AB34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{839E1716-C3A5-4362-96D2-87C7C9D1AB34}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{839E1716-C3A5-4362-96D2-87C7C9D1AB34}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{839E1716-C3A5-4362-96D2-87C7C9D1AB34}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{839E1716-C3A5-4362-96D2-87C7C9D1AB34} = {FBE75125-A785-4E7E-90A8-C1CB14C61009}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6D79FE9E-690A-4414-A274-7713B886E864}
