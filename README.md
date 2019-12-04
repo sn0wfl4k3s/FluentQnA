@@ -13,5 +13,5 @@ Depois adicione na Startup.cs:
 ![services](https://user-images.githubusercontent.com/30809620/70176814-e54bd580-16b7-11ea-9f11-d116c5275637.PNG)  
 
 
-Depois para usar no controller:  
+Agora é só utilizar da seguinte forma no controller:  
 ![controller](https://user-images.githubusercontent.com/30809620/70176922-17f5ce00-16b8-11ea-8c79-be5369a522d5.PNG)
