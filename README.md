@@ -5,7 +5,11 @@ Uma lib de machine learning para simular um serviço cognitivo para responder pe
 Primeiro adicione a base de conhecimento:  
 ![project](https://user-images.githubusercontent.com/30809620/70176657-9b62ef80-16b7-11ea-9e7f-e3709e120c5d.PNG)  
 
-  Você pode baixar a base de conhecimento de exemplo [aqui](https://github.com/snowflakesss/FluentQnA/blob/master/FluentQnA/WebApplication/knowledgebase.xlsx).  
+  Você pode baixar a base de conhecimento de exemplo [aqui](https://github.com/snowflakesss/FluentQnA/blob/master/FluentQnA/WebApplication/knowledgebase.xlsx).
+  
+Não se esqueça de setar as Properties da knowledgebase.xlsx para Copy if newer:
+![properties](https://user-images.githubusercontent.com/30809620/70178791-a455c000-16bb-11ea-95b2-3e17ba3946c7.PNG)
+
   
 ![knowledgebase](https://user-images.githubusercontent.com/30809620/70176705-b03f8300-16b7-11ea-9d9d-37242f1420cc.PNG)  
 
