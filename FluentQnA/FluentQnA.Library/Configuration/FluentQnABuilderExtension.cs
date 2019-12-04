@@ -4,17 +4,11 @@ namespace FluentQnA
 {
     public static class FluentQnABuilderExtension
     {
-        public static void AddFluentQnA(this IServiceCollection services)
+        public static void AddFluentQnA(this IServiceCollection services, string knowledgebasepath)
         {
-            services.AddSingleton<IFluentQnA, FluentQnAImpl>(option => 
+            services.AddSingleton<IFluentQnA, FluentQnAService>(option => 
             {
-                var fluent = new FluentQnAImpl();
-
-                fluent.LoadKnowledgebase();
-
-                fluent.TrainingModel();
-                
-                return fluent;
+                return new FluentQnAService(knowledgebasepath);
             });
         }
     }

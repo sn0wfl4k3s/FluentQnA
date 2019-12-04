@@ -1,5 +1,6 @@
 ﻿using FluentQnA.Exception;
 using FluentQnA.Models;
+using IronXL;
 using Microsoft.ML;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -9,23 +10,90 @@ using System.Threading.Tasks;
 
 namespace FluentQnA
 {
-    public class FluentQnAImpl : IFluentQnA
+    public class FluentQnAService : IFluentQnA
     {
         private MLContext _mlContext;
         private ITransformer _trainedModel;
         private IEnumerable<QnA> _knowledgebase;
 
         public string TrainedModelPath { get; set; } = "trained_model.zip";
-        public string KnowledgeBasePath { get; set; } = "knowledgebase.json";
 
-        public void LoadKnowledgebase()
+        public FluentQnAService(string knowledgeBasePath)
         {
-            if (!File.Exists(KnowledgeBasePath))
+            LoadFromFile(knowledgeBasePath);
+
+            TrainingModel();
+        }
+
+        private void LoadFromFile(string knowledgeBasePath)
+        {
+            if (!File.Exists(knowledgeBasePath))
             {
                 throw new KnowledgebaseFileNotFoundException();
             }
 
-            using (var file = new StreamReader(KnowledgeBasePath))
+            var extension = knowledgeBasePath.Split('.').Last();
+
+            switch (extension)
+            {
+                case "json": LoadFromJson(knowledgeBasePath); break;
+
+                case "xlsx": LoadFromExcel(knowledgeBasePath); break;
+
+                default: throw new FileFormatNotException();
+            }
+        }
+
+        private void LoadFromExcel(string knowledgeBasePath)
+        {
+            var workbook = WorkBook.LoadExcel(knowledgeBasePath);
+
+            var sheet = workbook.WorkSheets.First();
+
+            var knowledgebase = new List<QnA>();
+
+            for (int i = 2; i <= sheet.Rows.Count; i++)
+            {
+                var range = $"A{i}:ZZ{i}";
+
+                var answer = string.Empty;
+
+                var questions = new List<string>();
+
+                foreach (var cell in sheet[range])
+                {
+                    if (!string.IsNullOrEmpty(cell.Text))
+                    {
+                        if (cell.ColumnIndex == 0)
+                        {
+                            answer = cell.Text;
+                        }
+                        else
+                        {
+                            questions.Add(cell.Text);
+                        }
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                var qna = new QnA
+                {
+                    Answer = answer,
+                    Questions = questions.ToArray()
+                };
+
+                knowledgebase.Add(qna);
+            }
+
+            _knowledgebase = knowledgebase;
+        }
+
+        private void LoadFromJson(string knowledgeBasePath)
+        {
+            using (var file = new StreamReader(knowledgeBasePath))
             {
                 var json = file.ReadToEnd();
 
@@ -55,11 +123,11 @@ namespace FluentQnA
             _mlContext.Model.Save(_trainedModel, dataView.Schema, TrainedModelPath);
         }
 
-        public async Task<IEnumerable<QnAResult>> GetAnswers(string question, float? minAccuracy)
+        public async Task<IEnumerable<QnAResult>> GetAnswers(string question, float? minAccuracy = 0)
         {
             if (!File.Exists(TrainedModelPath))
             {
-                throw new TrainedModelFileNotFoundException();
+                TrainingModel();
             }
 
             if (minAccuracy.HasValue && (minAccuracy < 0 || minAccuracy > 1))
@@ -71,7 +139,7 @@ namespace FluentQnA
 
             var predictEngine = _mlContext.Model.CreatePredictionEngine<QnA, AnswerPrediction>(_trainedModel);
 
-            var qna = new QnA { Questions = new string[] { question } };
+            var qna = new QnA { Questions = new string[] { question, question, question, question, question } };
 
             var prediction = predictEngine.Predict(qna);
 
@@ -84,7 +152,7 @@ namespace FluentQnA
                     Questions = knowledge.Questions,
                     Accuracy = scores[index]
                 })
-                .Where(q => q.Accuracy >= (minAccuracy ?? 0.6f))
+                .Where(q => q.Accuracy >= (minAccuracy ?? 0))
                 .OrderByDescending(q => q.Accuracy);
 
             return await Task.FromResult(query);

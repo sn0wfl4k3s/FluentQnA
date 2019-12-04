@@ -1,4 +1,7 @@
-﻿using System;
+﻿using FluentQnA;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ConsoleApplication
 {
@@ -6,7 +9,17 @@ namespace ConsoleApplication
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Task.Run(async () =>
+            {
+                var service = new FluentQnAService("knowledgebase.xlsx");
+
+                var question = "o que você pode fazer ?";
+
+                var results = await service.GetAnswers(question);
+
+                Console.WriteLine(results.First().Answer);
+
+            }).GetAwaiter().GetResult();
         }
     }
 }
