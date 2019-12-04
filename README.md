@@ -3,7 +3,9 @@ Uma lib de machine learning para simular um serviço cognitivo para responder pe
 
 ## Modo de uso para web api:
 Primeiro adicione a base de conhecimento:  
-![project](https://user-images.githubusercontent.com/30809620/70176657-9b62ef80-16b7-11ea-9e7f-e3709e120c5d.PNG)
+![project](https://user-images.githubusercontent.com/30809620/70176657-9b62ef80-16b7-11ea-9e7f-e3709e120c5d.PNG)  
+
+  Você pode baixar a base de conhecimento de exemplo [aqui](https://github.com/snowflakesss/FluentQnA/blob/master/FluentQnA/WebApplication/knowledgebase.xlsx).  
   
 ![knowledgebase](https://user-images.githubusercontent.com/30809620/70176705-b03f8300-16b7-11ea-9d9d-37242f1420cc.PNG)  
 
