@@ -10,9 +10,6 @@ Primeiro adicione a base de conhecimento:
 Não se esqueça de setar as Properties da knowledgebase.xlsx para Copy if newer:
 ![properties](https://user-images.githubusercontent.com/30809620/70178791-a455c000-16bb-11ea-95b2-3e17ba3946c7.PNG)
 
-  
-![knowledgebase](https://user-images.githubusercontent.com/30809620/70176705-b03f8300-16b7-11ea-9d9d-37242f1420cc.PNG)  
-
 Depois adicione na Startup.cs:  
 ![services](https://user-images.githubusercontent.com/30809620/70176814-e54bd580-16b7-11ea-9f11-d116c5275637.PNG)  
 
