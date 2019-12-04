@@ -9,9 +9,9 @@ Primeiro adicione a base de conhecimento:
   
 ![knowledgebase](https://user-images.githubusercontent.com/30809620/70176705-b03f8300-16b7-11ea-9d9d-37242f1420cc.PNG)  
 
-depois adicione na Startup.cs:  
+Depois adicione na Startup.cs:  
 ![services](https://user-images.githubusercontent.com/30809620/70176814-e54bd580-16b7-11ea-9f11-d116c5275637.PNG)  
 
 
-depois para usar no controller:  
+Depois para usar no controller:  
 ![controller](https://user-images.githubusercontent.com/30809620/70176922-17f5ce00-16b8-11ea-8c79-be5369a522d5.PNG)
