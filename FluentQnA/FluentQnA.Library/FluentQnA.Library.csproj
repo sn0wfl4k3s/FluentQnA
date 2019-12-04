@@ -2,12 +2,27 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>FluentQnA</PackageId>
+    <Authors>Snowflakes</Authors>
+    <Product>FluentQnA</Product>
+    <Description>Uma lib de machine learning para simular um serviço cognitivo para responder perguntas de usuários consultando uma base de conhecimento previamente carregada.</Description>
+    <PackageTags>cognitive-services;dotnet-core;machine-learning;ml-dotnet;qna;standard</PackageTags>
+    <RepositoryUrl>https://github.com/snowflakesss/FluentQnA</RepositoryUrl>
+    <PackageIcon>qna.jpg</PackageIcon>
+    <PackageIconUrl />
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="IronXL.Excel" Version="2019.5.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.1.1" />
     <PackageReference Include="Microsoft.ML" Version="1.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\..\..\Desktop\qna.jpg">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
