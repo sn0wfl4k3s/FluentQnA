@@ -1,6 +1,13 @@
 # FluentQnA
 Uma lib de machine learning para simular um serviço cognitivo para responder perguntas de usuários consultando uma base de conhecimento previamente carregada. A base de conhecimento pode ser em xlsx ou json. Essa lib pode ser usada para facilitar a criação de chatbots consultando pergunta e respostas roteirizadas e usando classificação multiclasse para selecionar as melhores respostas com base na precisão.
 
+## Instalação
+Download pelo dotnet cli:  
+
+```   
+  Install-Package FluentQnA  
+```
+
 ## Modo de uso para web api:
 Primeiro adicione a base de conhecimento:  
 ![project](https://user-images.githubusercontent.com/30809620/70176657-9b62ef80-16b7-11ea-9e7f-e3709e120c5d.PNG)  
