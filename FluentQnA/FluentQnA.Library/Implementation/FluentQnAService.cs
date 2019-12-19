@@ -1,4 +1,5 @@
 ﻿using FluentQnA.Exception;
+using FluentQnA.Library.Model;
 using FluentQnA.Models;
 using IronXL;
 using Microsoft.ML;
@@ -14,18 +15,18 @@ namespace FluentQnA
     {
         private MLContext _mlContext;
         private ITransformer _trainedModel;
-        private IEnumerable<QnA> _knowledgebase;
+        private IEnumerable<QnaModel> _knowledgebase;
 
         public string TrainedModelPath { get; set; } = "trained_model.zip";
 
         public FluentQnAService(string knowledgeBasePath)
         {
-            LoadFromFile(knowledgeBasePath);
+            _knowledgebase = LoadFromFile(knowledgeBasePath);
 
             TrainingModel();
         }
 
-        private void LoadFromFile(string knowledgeBasePath)
+        private IEnumerable<QnaModel> LoadFromFile(string knowledgeBasePath)
         {
             if (!File.Exists(knowledgeBasePath))
             {
@@ -34,70 +35,91 @@ namespace FluentQnA
 
             var extension = knowledgeBasePath.Split('.').Last();
 
+            IList<QnaLine> qnaLines;
+
             switch (extension)
             {
-                case "json": LoadFromJson(knowledgeBasePath); break;
+                case "json": qnaLines = LoadFromJson(knowledgeBasePath); break;
 
-                case "xlsx": LoadFromExcel(knowledgeBasePath); break;
+                case "xlsx": qnaLines = LoadFromExcel(knowledgeBasePath); break;
 
                 default: throw new FileFormatNotException();
             }
+
+            var models = TransformInModel(qnaLines);
+
+            return models;
         }
 
-        private void LoadFromExcel(string knowledgeBasePath)
+        private IList<QnaModel> TransformInModel(IList<QnaLine> qnaLines)
+        {
+            var collection = new List<QnaPreModel>();
+
+            foreach (var line in qnaLines)
+            {
+                if (!string.IsNullOrEmpty(line.Answer) || !string.IsNullOrEmpty(line.Question))
+                {
+                    if (!collection.Any(m => m.Answer == line.Answer))
+                    {
+                        var qna = new QnaPreModel
+                        {
+                            Answer = line.Answer,
+                            Questions = new List<string> { line.Question }
+                        };
+
+                        collection.Add(qna);
+                    }
+                    else
+                    {
+                        var registred = collection.Where(c => c.Answer == line.Answer).First();
+
+                        registred.Questions.Add(line.Question);
+                    }
+                }
+            }
+
+            var qnaModels = collection.Select(c => new QnaModel
+            {
+                Answer = c.Answer,
+                Questions = c.Questions.ToArray()
+            }).ToList();
+
+            return qnaModels;
+        }
+
+        private IList<QnaLine> LoadFromExcel(string knowledgeBasePath)
         {
             var workbook = WorkBook.LoadExcel(knowledgeBasePath);
 
             var sheet = workbook.WorkSheets.First();
 
-            var knowledgebase = new List<QnA>();
+            var lines = new List<QnaLine>();
 
             for (int i = 2; i <= sheet.Rows.Count; i++)
             {
-                var range = $"A{i}:ZZ{i}";
+                var range = $"A{i}:B{i}";
 
-                var answer = string.Empty;
+                var cell = sheet[range].ToArray();
 
-                var questions = new List<string>();
-
-                foreach (var cell in sheet[range])
+                var line = new QnaLine
                 {
-                    if (!string.IsNullOrEmpty(cell.Text))
-                    {
-                        if (cell.ColumnIndex == 0)
-                        {
-                            answer = cell.Text;
-                        }
-                        else
-                        {
-                            questions.Add(cell.Text);
-                        }
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-
-                var qna = new QnA
-                {
-                    Answer = answer,
-                    Questions = questions.ToArray()
+                    Question = cell[0].ToString(),
+                    Answer = cell[1].ToString()
                 };
 
-                knowledgebase.Add(qna);
+                lines.Add(line);
             }
 
-            _knowledgebase = knowledgebase;
+            return lines;
         }
 
-        private void LoadFromJson(string knowledgeBasePath)
+        private IList<QnaLine> LoadFromJson(string knowledgeBasePath)
         {
             using (var file = new StreamReader(knowledgeBasePath))
             {
                 var json = file.ReadToEnd();
 
-                _knowledgebase = JsonConvert.DeserializeObject<IEnumerable<QnA>>(json);
+                return JsonConvert.DeserializeObject<IList<QnaLine>>(json);
             }
         }
 
@@ -132,14 +154,14 @@ namespace FluentQnA
 
             if (minAccuracy.HasValue && (minAccuracy < 0 || minAccuracy > 1))
             {
-                throw new AccuracyOutOfRangeException();
+                throw new AccuracyOutOfRangeException(); 
             }
 
             _trainedModel = _mlContext.Model.Load(TrainedModelPath, out _);
 
-            var predictEngine = _mlContext.Model.CreatePredictionEngine<QnA, AnswerPrediction>(_trainedModel);
+            var predictEngine = _mlContext.Model.CreatePredictionEngine<QnaModel, AnswerPrediction>(_trainedModel);
 
-            var qna = new QnA { Questions = new string[] { question, question, question, question, question } };
+            var qna = new QnaModel { Questions = new string[] { question } };
 
             var prediction = predictEngine.Predict(qna);
 

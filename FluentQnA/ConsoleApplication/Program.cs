@@ -13,7 +13,7 @@ namespace ConsoleApplication
             {
                 var service = new FluentQnAService("knowledgebase.xlsx");
 
-                var question = "o que você pode fazer ?";
+                var question = "o que você pode fazer";
 
                 var results = await service.GetAnswers(question);
 

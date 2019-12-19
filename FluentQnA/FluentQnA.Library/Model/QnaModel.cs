@@ -2,7 +2,7 @@
 
 namespace FluentQnA.Models
 {
-    public class QnA
+    public class QnaModel
     {
         [VectorType]
         [LoadColumn(0)]
