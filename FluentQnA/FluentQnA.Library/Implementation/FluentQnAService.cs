@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 
 namespace FluentQnA
 {
-    // nova arquitetura
     public class FluentQnAService : IFluentQnA
     {
         private MLContext _mlContext;
