@@ -20,9 +20,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\..\..\..\Desktop\qna.jpg">
+    <None Include="qna.jpg">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="qna.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
