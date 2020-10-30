@@ -1,22 +1,36 @@
-﻿using System.Collections.Generic;
+﻿using FluentQnA.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace FluentQnA
 {
     public interface IFluentQnA
     {
-        /// <summary> The path of the training model that will be trains or has been trained. </summary>
+        /// <summary> 
+        /// The path of the training model that will be trains or has been trained. 
+        /// </summary>
         string TrainedModelPath { get; set; }
+        
+        /// <summary>
+        /// Knowledgebase how is used for base to prediction the answer
+        /// </summary>
+        IEnumerable<QnA> Knowledgebase { get; set; }
 
-
+        #region TrainingModel
         /// <summary> Trains the model to use the answers prediction.</summary>
         void TrainingModel();
-        
-        /// <summary> Queries the knowledge base and returns a possible answer to the question.</summary>
-        /// <param name="question">The question that will be analyzed in the knowledge base.</param>
-        /// <param name="minAccuracy">the minimum accuracy for the responses returned. The allowable accuracy range is from 0 to 1.
-        /// That parameter is optional and the value default is 0.</param>
-        /// <returns> An enumerable set of QnAResult with the questions, answer and accuracy from each element.</returns>
-        Task<IEnumerable<QnAResult>> GetAnswers(string question, float? minAccuracy = 0);
+        /// <summary> Trains asynchronously the model to use the answers prediction </summary>
+        Task TrainingModelAsync();
+        #endregion
+
+        #region GetAnswer
+        QnAResult GetAnswer(string question);
+        Task<QnAResult> GetAnswerAsync(string question);
+        #endregion
+
+        #region GetAnswers
+        IEnumerable<QnAResult> GetAnswers(string question);
+        Task<IEnumerable<QnAResult>> GetAnswersAsync(string question);
+        #endregion
     }
 }
