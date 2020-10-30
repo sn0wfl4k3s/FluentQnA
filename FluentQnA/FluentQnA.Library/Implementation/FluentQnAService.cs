@@ -10,13 +10,12 @@ using System.Threading.Tasks;
 
 namespace FluentQnA
 {
-    public class FluentQnAService : IFluentQnA
+    public sealed class FluentQnAService : IFluentQnA
     {
         private MLContext _mlContext;
         private ITransformer _trainedModel;
 
         public string TrainedModelPath { get; set; } = "trainedModel.zip";
-        
         public IEnumerable<QnA> Knowledgebase { get; set; }
 
 

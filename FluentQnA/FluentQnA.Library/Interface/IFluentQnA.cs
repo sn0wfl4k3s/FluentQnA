@@ -7,7 +7,7 @@ namespace FluentQnA
     public interface IFluentQnA
     {
         /// <summary> 
-        /// The path of the training model that will be trains or has been trained. 
+        /// The path of the training model that will be trains or has been trained. The default value is "trainedModel.zip"
         /// </summary>
         string TrainedModelPath { get; set; }
         
