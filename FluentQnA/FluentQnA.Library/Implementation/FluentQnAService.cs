@@ -1,8 +1,6 @@
 ﻿using FluentQnA.Exception;
 using FluentQnA.Models;
-using IronXL;
 using Microsoft.ML;
-using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -18,86 +16,13 @@ namespace FluentQnA
 
         public string TrainedModelPath { get; set; } = "trained_model.zip";
 
-        public FluentQnAService(string knowledgeBasePath)
+        public FluentQnAService(IEnumerable<QnA> knowledgebase, bool trainModelInInit = true)
         {
-            LoadFromFile(knowledgeBasePath);
-
-            TrainingModel();
-        }
-
-        private void LoadFromFile(string knowledgeBasePath)
-        {
-            if (!File.Exists(knowledgeBasePath))
-            {
-                throw new KnowledgebaseFileNotFoundException();
-            }
-
-            var extension = knowledgeBasePath.Split('.').Last();
-
-            switch (extension)
-            {
-                case "json": LoadFromJson(knowledgeBasePath); break;
-
-                case "xlsx": LoadFromExcel(knowledgeBasePath); break;
-
-                default: throw new FileFormatNotException();
-            }
-        }
-
-        private void LoadFromExcel(string knowledgeBasePath)
-        {
-            var workbook = WorkBook.LoadExcel(knowledgeBasePath);
-
-            var sheet = workbook.WorkSheets.First();
-
-            var knowledgebase = new List<QnA>();
-
-            for (int i = 2; i <= sheet.Rows.Length; i++)
-            {
-                var range = $"A{i}:ZZ{i}";
-
-                var answer = string.Empty;
-
-                var questions = new List<string>();
-
-                foreach (var cell in sheet[range])
-                {
-                    if (!string.IsNullOrEmpty(cell.Text))
-                    {
-                        if (cell.ColumnIndex == 0)
-                        {
-                            answer = cell.Text;
-                        }
-                        else
-                        {
-                            questions.Add(cell.Text);
-                        }
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-
-                var qna = new QnA
-                {
-                    Answer = answer,
-                    Questions = questions.ToArray()
-                };
-
-                knowledgebase.Add(qna);
-            }
-
             _knowledgebase = knowledgebase;
-        }
 
-        private void LoadFromJson(string knowledgeBasePath)
-        {
-            using (var file = new StreamReader(knowledgeBasePath))
+            if (trainModelInInit)
             {
-                var json = file.ReadToEnd();
-
-                _knowledgebase = JsonConvert.DeserializeObject<IEnumerable<QnA>>(json);
+                TrainingModel();
             }
         }
 
