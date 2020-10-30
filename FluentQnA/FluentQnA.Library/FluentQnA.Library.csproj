@@ -11,6 +11,7 @@
     <PackageIcon>qna.jpg</PackageIcon>
     <PackageIconUrl />
     <Version>1.1.0</Version>
+    <PackageReleaseNotes>- reformulações e simplificações de uso.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
