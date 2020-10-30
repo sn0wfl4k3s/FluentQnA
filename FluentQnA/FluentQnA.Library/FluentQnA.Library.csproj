@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <PackageId>FluentQnA</PackageId>
     <Authors>Snowflakes</Authors>
     <Product>FluentQnA</Product>
@@ -10,18 +10,25 @@
     <RepositoryUrl>https://github.com/snowflakesss/FluentQnA</RepositoryUrl>
     <PackageIcon>qna.jpg</PackageIcon>
     <PackageIconUrl />
+    <Version>1.1.0</Version>
+    <PackageReleaseNotes>- reformulações e simplificações de uso.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="IronXL.Excel" Version="2019.5.2" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.1.1" />
-    <PackageReference Include="Microsoft.ML" Version="1.4.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.9" />
+    <PackageReference Include="Microsoft.ML" Version="1.5.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\..\..\..\Desktop\qna.jpg">
+    <None Include="qna.jpg">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="qna.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

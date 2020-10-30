@@ -2,7 +2,7 @@
 
 namespace FluentQnA.Models
 {
-    public class AnswerPrediction
+    class AnswerPrediction
     {
         [ColumnName("PredictedLabel")]
         public string Answer;
