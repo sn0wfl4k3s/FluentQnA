@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace FluentQnA
 {
-    public sealed class FluentQnAService : IFluentQnA
+    public class FluentQnAService : IFluentQnA
     {
         private MLContext _mlContext;
         private ITransformer _trainedModel;
@@ -42,7 +42,7 @@ namespace FluentQnA
         {
             var predictEngine = GetPredictEngine();
 
-            var answerPrediction = predictEngine.Predict(new QnA { Questions = new string[] { question } });
+            var answerPrediction = predictEngine.Predict(new QnA { Question = question });
 
             var qnaResult = new QnAResult
             {
@@ -65,7 +65,7 @@ namespace FluentQnA
         {
             var predictEngine = GetPredictEngine();
 
-            var result = predictEngine.Predict(new QnA { Questions = new string[] { question } });
+            var result = predictEngine.Predict(new QnA { Question = question });
 
             // https://github.com/dotnet/docs/issues/14265
             // https://stackoverflow.com/questions/53266283/ml-net-0-7-get-scores-and-labels-for-multiclassclassification
@@ -102,13 +102,13 @@ namespace FluentQnA
 
             var pipeline = _mlContext.Transforms.Conversion
                 .MapValueToKey(inputColumnName: "Answer", outputColumnName: "Label")
-                .Append(_mlContext.Transforms.Text.FeaturizeText(inputColumnName: "Questions", outputColumnName: "QuestionsFeaturized"))
+                .Append(_mlContext.Transforms.Text.FeaturizeText(inputColumnName: "Question", outputColumnName: "QuestionFeaturized"))
                 .Append(_mlContext.Transforms.Text.FeaturizeText(inputColumnName: "Answer", outputColumnName: "AnswerFeaturized"))
-                .Append(_mlContext.Transforms.Concatenate("Features", "QuestionsFeaturized", "AnswerFeaturized"))
+                .Append(_mlContext.Transforms.Concatenate("Features", "QuestionFeaturized", "AnswerFeaturized"))
                 .AppendCacheCheckpoint(_mlContext);
 
             var trainingPipeline = pipeline
-                .Append(_mlContext.MulticlassClassification.Trainers.SdcaMaximumEntropy("Label", "Features"))
+                .Append(_mlContext.MulticlassClassification.Trainers.SdcaMaximumEntropy())
                 .Append(_mlContext.Transforms.Conversion.MapKeyToValue("PredictedLabel"));
 
             _trainedModel = trainingPipeline.Fit(dataView);
