@@ -24,12 +24,34 @@ namespace FluentQnA
         #endregion
 
         #region GetAnswer
+        /// <summary>
+        /// Get answers from the knowledgebase.
+        /// </summary>
+        /// <param name="question"> question from a user </param>
+        /// <returns></returns>
         QnAResult GetAnswer(string question);
+        /// <summary>
+        /// Get answers from the knowledgebase asynchronously.
+        /// </summary>
+        /// <param name="question"> question from a user </param>
+        /// <returns></returns>
         Task<QnAResult> GetAnswerAsync(string question);
         #endregion
 
         #region GetAnswers
+
+        /// <summary>
+        /// Get answers from the knowledgebase.
+        /// </summary>
+        /// <param name="question"> question from a user </param>
+        /// <returns></returns>
         IEnumerable<QnAResult> GetAnswers(string question);
+
+        /// <summary>
+        /// Get answers from the knowledgebase asynchronously.
+        /// </summary>
+        /// <param name="question"> question from a user </param>
+        /// <returns></returns>
         Task<IEnumerable<QnAResult>> GetAnswersAsync(string question);
         #endregion
     }

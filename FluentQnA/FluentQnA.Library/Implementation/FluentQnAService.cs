@@ -1,4 +1,5 @@
-﻿using FluentQnA.Models;
+﻿using FluentQnA.Library.Exception;
+using FluentQnA.Models;
 using Microsoft.ML;
 using Microsoft.ML.Data;
 using Microsoft.ML.Trainers;
@@ -16,13 +17,21 @@ namespace FluentQnA
         private MLContext _mlContext;
         private ITransformer _trainedModel;
 
-        public string TrainedModelPath { get; set; } = "trainedModel.zip";
+        public string TrainedModelPath { get; set; }
         public IEnumerable<QnA> Knowledgebase { get; set; }
 
 
-        public FluentQnAService(IEnumerable<QnA> knowledgebase)
+        public FluentQnAService(IEnumerable<QnA> knowledgebase, string trainedModelPath = "trainedModel.zip")
         {
+            var extension = Path.GetExtension(trainedModelPath);
+
+            if (!".zip".Equals(extension, StringComparison.InvariantCultureIgnoreCase))
+            {
+                throw new TrainedModelNotZipException();
+            }
+
             Knowledgebase = knowledgebase;
+            TrainedModelPath = trainedModelPath;
         }
 
         #region TrainingModel
