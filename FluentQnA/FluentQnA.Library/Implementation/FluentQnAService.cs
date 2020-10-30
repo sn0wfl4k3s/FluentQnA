@@ -1,6 +1,7 @@
 ﻿using FluentQnA.Models;
 using Microsoft.ML;
 using Microsoft.ML.Data;
+using Microsoft.ML.Trainers;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -108,7 +109,8 @@ namespace FluentQnA
                 .AppendCacheCheckpoint(_mlContext);
 
             var trainingPipeline = pipeline
-                .Append(_mlContext.MulticlassClassification.Trainers.SdcaMaximumEntropy())
+                .Append(_mlContext.MulticlassClassification.Trainers
+                    .SdcaMaximumEntropy( new SdcaMaximumEntropyMulticlassTrainer.Options { ConvergenceTolerance = .01f }))
                 .Append(_mlContext.Transforms.Conversion.MapKeyToValue("PredictedLabel"));
 
             _trainedModel = trainingPipeline.Fit(dataView);
