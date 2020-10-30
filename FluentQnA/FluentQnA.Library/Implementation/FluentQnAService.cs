@@ -52,7 +52,7 @@ namespace FluentQnA
 
             var knowledgebase = new List<QnA>();
 
-            for (int i = 2; i <= sheet.Rows.Count; i++)
+            for (int i = 2; i <= sheet.Rows.Length; i++)
             {
                 var range = $"A{i}:ZZ{i}";
 

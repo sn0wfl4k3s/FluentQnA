@@ -14,9 +14,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="IronXL.Excel" Version="2019.5.2" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.1.1" />
-    <PackageReference Include="Microsoft.ML" Version="1.4.0" />
+    <PackageReference Include="IronXL.Excel" Version="2020.9.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.9" />
+    <PackageReference Include="Microsoft.ML" Version="1.5.2" />
   </ItemGroup>
 
   <ItemGroup>
