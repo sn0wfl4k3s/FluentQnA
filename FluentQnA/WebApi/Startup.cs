@@ -29,8 +29,8 @@ namespace WebApi
                 new QnA { Question = "O que você é?", Answer = "Sou um serviço para responder perguntas de usuários." },
                 new QnA { Question = "O que você faz?", Answer = "Sou um serviço para responder perguntas de usuários." },
                 new QnA { Question = "O que você pode fazer?", Answer = "Sou um serviço para responder perguntas de usuários." },
-                new QnA { Question = "Você possui suporte para aplicações web?", Answer = "Sim, basta acrescentar na CollectionServices" },
-                new QnA { Question = "posso usá-lo em aplicações web?", Answer = "Sim, basta acrescentar na CollectionServices" },
+                new QnA { Question = "Você possui suporte para aplicações web?", Answer = "Sim, basta acrescentar na IServiceCollection" },
+                new QnA { Question = "posso usá-lo em aplicações web?", Answer = "Sim, basta acrescentar na IServiceCollection" },
                 new QnA { Question = "Qual o seu autor?", Answer = "Snowflakes" },
             };
 
