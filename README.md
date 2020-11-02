@@ -9,4 +9,4 @@ Download pelo dotnet cli:
 ```
 
 ## Exemplo:
-![image](https://user-images.githubusercontent.com/30809620/97926578-2920e200-1d42-11eb-843d-028e2d5ff855.png)
+![image](https://user-images.githubusercontent.com/30809620/97926724-62595200-1d42-11eb-937a-dc1fdfa7ac21.png)
