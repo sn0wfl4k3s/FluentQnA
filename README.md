@@ -7,3 +7,6 @@ Download pelo dotnet cli:
 ```   
   Install-Package FluentQnA  
 ```
+
+
+![image](https://user-images.githubusercontent.com/30809620/97926485-f5de5300-1d41-11eb-956c-8de670b78289.png)
